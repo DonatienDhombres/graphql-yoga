@@ -40,6 +40,17 @@ const Mutation = {
     });
     return response.data;
   },
+  updateAgent: async (parent, args, context, info) => {
+    const data = {};
+    const { id, name, age, married, average } = args;
+
+    if (name !== undefined) { data.name = name };
+    if (age !== undefined) { data.age = age };
+    if (married !== undefined) { data.married = married };
+    if (average !== undefined) { data.average = average };
+    const response = await axios.patch(`${db}/users/${id}`, data);
+    return response.data;
+  },
   createPost: async (parent, args, context, info) => {
     // get token = user id
     // got to store picture === get id of the picture
@@ -52,13 +63,36 @@ const Mutation = {
       picture: 1
     });
     return response.data;
+  },
+  deletePost: async (parent, args, context, info) => {
+    // get token = user id
+
+    const response = await axios.delete(`${db}/posts/${args.id}`);
+    if (Object.keys(response.data).length === 0) {
+      return true;
+    }
+    return false;
+  },
+  deleteAgent: async (parent, args, context, info) => {
+    const response = await axios.delete(`${db}/users/${args.id}`);
+
+    // find all posts - delete them
+    // find all pictures - delete them
+    if (Object.keys(response.data).length === 0) {
+      return true;
+    }
+    return false;
   }
 }
 
 const Post = {
   author: async (parent, args, context, info) => {
-    const response = await axios.get(`${db}/users/${parent.author}`);
-    return response.data;
+    try {
+      const response = await axios.get(`${db}/users/${parent.author}`);
+      return response.data;
+    } catch (error) {
+      return null;
+    }
   },
   picture: async (parent, args, context, info) => {
     const response = await axios.get(`${db}/pictures/${parent.picture}`);

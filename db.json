@@ -38,6 +38,13 @@
       "married": true,
       "average": 0,
       "id": 5
+    },
+    {
+      "name": "Marie, queen of scots",
+      "age": 22,
+      "married": true,
+      "average": 3,
+      "id": 7
     }
   ],
   "posts": [
@@ -110,13 +117,6 @@
       "author": 1,
       "picture": 1,
       "id": 11
-    },
-    {
-      "title": "The last dragon2",
-      "content": "The best dragon ever2",
-      "author": 1,
-      "picture": 1,
-      "id": 12
     }
   ],
   "pictures": [

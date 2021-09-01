@@ -31,6 +31,13 @@
       "married": true,
       "average": 2.5,
       "status": "guest"
+    },
+    {
+      "name": "Francis",
+      "age": 23,
+      "married": true,
+      "average": 0,
+      "id": 5
     }
   ],
   "posts": [
@@ -96,6 +103,20 @@
       "author": 1,
       "picture": 2,
       "id": 9
+    },
+    {
+      "title": "The last dragon2",
+      "content": "The best dragon ever2",
+      "author": 1,
+      "picture": 1,
+      "id": 11
+    },
+    {
+      "title": "The last dragon2",
+      "content": "The best dragon ever2",
+      "author": 1,
+      "picture": 1,
+      "id": 12
     }
   ],
   "pictures": [

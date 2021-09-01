@@ -1,3 +1,5 @@
+// resolvers
+
 import axios from 'axios';
 const db = 'http://localhost:3004';
 
@@ -24,6 +26,31 @@ const Query = {
   },
   pictures: async (parent, args, context, info) => {
     const response = await axios.get(`${db}/pictures`);
+    return response.data;
+  }
+}
+
+const Mutation = {
+  createAgent: async (parent, args, context, info) => {
+    const response = await axios.post(`${db}/users`, {
+      name: args.name,
+      age: args.age,
+      married: args.married,
+      average: 0
+    });
+    return response.data;
+  },
+  createPost: async (parent, args, context, info) => {
+    // get token = user id
+    // got to store picture === get id of the picture
+
+
+    const response = await axios.post(`${db}/posts`, {
+      title: args.title,
+      content: args.content,
+      author: 1,
+      picture: 1
+    });
     return response.data;
   }
 }
@@ -63,6 +90,7 @@ const Picture = {
 
 export {
   Query,
+  Mutation,
   Post,
   User,
   Picture

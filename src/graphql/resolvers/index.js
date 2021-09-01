@@ -27,27 +27,49 @@ const Query = {
   pictures: async (parent, args, context, info) => {
     const response = await axios.get(`${db}/pictures`);
     return response.data;
+  },
+  animal: async (parent, args, context, info) => {
+    let response = {};
+    let random = Math.floor(Math.random() * 6) + 1;
+    if (random > 3) {
+      response = {
+        animal: 'DOG',
+        name: 'Lassy',
+        hair: 'lots'
+      }
+    } else {
+      response = {
+        animal: 'CAT',
+        name: 'Fluffy',
+        paws: 'sharp'
+      }
+    }
+    return response;
   }
 }
 
 const Mutation = {
   createAgent: async (parent, args, context, info) => {
+    const { name, age, married, average, status } = args.data;
     const response = await axios.post(`${db}/users`, {
-      name: args.name,
-      age: args.age,
-      married: args.married,
-      average: 0
+      name: name,
+      age: age,
+      married: married,
+      average: 0,
+      status: status
     });
     return response.data;
   },
   updateAgent: async (parent, args, context, info) => {
+    const { id } = args;
+    const { name, age, married, average, status } = args.data;
     const data = {};
-    const { id, name, age, married, average } = args;
 
     if (name !== undefined) { data.name = name };
     if (age !== undefined) { data.age = age };
     if (married !== undefined) { data.married = married };
     if (average !== undefined) { data.average = average };
+    if (status !== undefined) { data.status = status };
     const response = await axios.patch(`${db}/users/${id}`, data);
     return response.data;
   },
@@ -60,7 +82,8 @@ const Mutation = {
       title: args.title,
       content: args.content,
       author: 1,
-      picture: 1
+      picture: 1,
+      status: "DRAFT"
     });
     return response.data;
   },
@@ -122,10 +145,23 @@ const Picture = {
   }
 }
 
+const AnimalInterface = {
+  __resolveType(obj, context, info) {
+    if (obj.animal == 'DOG') {
+      return 'Dog';
+    }
+    if (obj.animal == 'CAT') {
+      return 'Cat';
+    }
+    return null
+  }
+}
+
 export {
   Query,
   Mutation,
   Post,
   User,
-  Picture
+  Picture,
+  AnimalInterface
 }

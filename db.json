@@ -40,11 +40,26 @@
       "id": 5
     },
     {
-      "name": "Marie, queen of scots",
+      "name": "Marie, queen of scots and the world 2",
       "age": 22,
       "married": true,
       "average": 3,
       "id": 7
+    },
+    {
+      "name": "Marie",
+      "age": 23,
+      "married": true,
+      "average": 0,
+      "id": 8
+    },
+    {
+      "name": "Marie, queen of scots and the world 3",
+      "age": 22,
+      "average": 0,
+      "status": "guest",
+      "id": 9,
+      "married": true
     }
   ],
   "posts": [
@@ -117,6 +132,14 @@
       "author": 1,
       "picture": 1,
       "id": 11
+    },
+    {
+      "title": "The last dragon3",
+      "content": "The best dragon ever3",
+      "author": 1,
+      "picture": 1,
+      "status": "DRAFT",
+      "id": 12
     }
   ],
   "pictures": [

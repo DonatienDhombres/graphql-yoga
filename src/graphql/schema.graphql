@@ -1,25 +1,63 @@
 # typeDefs
 
+# union AnimalUnion = Dog | Cat
+
+interface AnimalInterface {
+  animal: String
+  name: String!
+}
+
+type Dog implements AnimalInterface {
+  animal: String
+  name: String!
+  hair: String!
+}
+
+type Cat implements AnimalInterface {
+  animal: String
+  name: String!
+  paws: String!
+}
+
 type Query {
   agent(id: ID!): User!
   agents(name: String, age: Int): [User!]!
   posts: [Post!]!
   post(id: ID!): Post!
   pictures: [Picture!]!
+  animal: AnimalInterface!
 }
 
 type Mutation {
-  createAgent(name: String!, age: Int!, married: Boolean): User!
-  updateAgent(
-    id: ID!
-    name: String
-    age: Int
-    married: Boolean
-    average: Float
-  ): User!
-  createPost(title: String!, content: String!): Post!
+  createAgent(data: CreateAgentInput): User!
+  updateAgent(id: ID!, data: UpdateAgentInput): User!
+  createPost(title: String!, content: String!, status: PostStatus): Post!
   deletePost(id: ID!): Boolean!
   deleteAgent(id: ID!): Boolean!
+}
+
+########
+
+enum AgentState {
+  active
+  not_active
+  trainee
+  guest
+}
+
+input CreateAgentInput {
+  name: String!
+  age: Int!
+  married: Boolean
+  status: AgentState!
+}
+
+input UpdateAgentInput {
+  name: String
+  age: Int
+  married: Boolean
+  average: Float
+  status: AgentState
 }
 
 type User {
@@ -28,8 +66,14 @@ type User {
   age: Int
   married: Boolean!
   average: Float
+  status: AgentState
   posts: [Post!]!
   pictures: [Picture!]!
+}
+
+enum PostStatus {
+  PUBLISHED
+  DRAFT
 }
 
 type Post {
@@ -38,6 +82,7 @@ type Post {
   content: String!
   author: User!
   picture: Picture!
+  status: PostStatus
 }
 
 type Picture {
